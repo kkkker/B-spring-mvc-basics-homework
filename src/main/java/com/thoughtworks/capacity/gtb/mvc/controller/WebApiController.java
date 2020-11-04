@@ -19,7 +19,7 @@ public class WebApiController {
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    public void register(@RequestBody @Valid User user) {
+    public void register(@RequestBody @Valid User user) throws Exception {
         webApiService.register(user);
     }
 }

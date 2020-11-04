@@ -14,8 +14,14 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handle(MethodArgumentNotValidException exception) {
-        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST.value()
-                , Objects.requireNonNull(exception.getBindingResult().getFieldError()).getDefaultMessage());
+        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST.value(),
+                Objects.requireNonNull(exception.getBindingResult().getFieldError()).getDefaultMessage());
+        return ResponseEntity.badRequest().body(errorResponse);
+    }
+
+    @ExceptionHandler(UsernameExistException.class)
+    public ResponseEntity<ErrorResponse> handle(UsernameExistException exception) {
+        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST.value(), exception.getMessage());
         return ResponseEntity.badRequest().body(errorResponse);
     }
 }
