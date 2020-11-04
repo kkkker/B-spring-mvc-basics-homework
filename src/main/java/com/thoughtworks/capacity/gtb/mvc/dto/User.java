@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
@@ -24,5 +25,7 @@ public class User {
     @NotEmpty(message = "密码不能为空")
     @Length(min = 5, max = 12, message = "密码不合法")
     private String password;
+
+    @Email(message = "邮箱地址不合法")
     private String email;
 }
