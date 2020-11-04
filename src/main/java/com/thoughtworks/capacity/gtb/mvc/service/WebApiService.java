@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class WebApiService {
@@ -20,6 +21,14 @@ public class WebApiService {
         if (usersDataBase.stream().anyMatch(userData -> userData.getUsername().equals(user.getUsername()))) {
             throw new UsernameExistException();
         }
+        user.setId(usersDataBase.size() + 1);
         usersDataBase.add(user);
+    }
+
+    public User login(String password, String username) {
+        Optional<User> optionalUser = usersDataBase.stream()
+                .filter(user -> user.getUsername().equals(username) && user.getPassword().equals(password))
+                .findFirst();
+        return optionalUser.get();
     }
 }
