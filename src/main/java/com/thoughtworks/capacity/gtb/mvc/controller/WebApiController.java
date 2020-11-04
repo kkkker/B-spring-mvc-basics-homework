@@ -31,7 +31,7 @@ public class WebApiController {
 
     @GetMapping("/login")
     public User login(@RequestParam @Length(min = 5, max = 12, message = "密码不合法") String password,
-                      @RequestParam @Pattern(regexp = "[A-Za-z_0-9]{3,10}$", message = "用户名不合法") String username) {
+                      @RequestParam @Pattern(regexp = "[A-Za-z_0-9]{3,10}$", message = "用户名不合法") String username) throws Exception {
         return webApiService.login(password, username);
     }
 }

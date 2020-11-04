@@ -28,6 +28,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(errorResponse);
     }
 
+    @ExceptionHandler(UsernameOrPasswordErrorException.class)
+    public ResponseEntity<ErrorResponse> handle(UsernameOrPasswordErrorException exception) {
+        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST.value(), exception.getMessage());
+        return ResponseEntity.badRequest().body(errorResponse);
+    }
+
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<ErrorResponse> handle(ConstraintViolationException ex) {
         Set<ConstraintViolation<?>> violations = ex.getConstraintViolations();

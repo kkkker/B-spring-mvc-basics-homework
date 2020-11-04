@@ -2,6 +2,7 @@ package com.thoughtworks.capacity.gtb.mvc.service;
 
 import com.thoughtworks.capacity.gtb.mvc.dto.User;
 import com.thoughtworks.capacity.gtb.mvc.exception.UsernameExistException;
+import com.thoughtworks.capacity.gtb.mvc.exception.UsernameOrPasswordErrorException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -25,10 +26,10 @@ public class WebApiService {
         usersDataBase.add(user);
     }
 
-    public User login(String password, String username) {
+    public User login(String password, String username) throws Exception {
         Optional<User> optionalUser = usersDataBase.stream()
                 .filter(user -> user.getUsername().equals(username) && user.getPassword().equals(password))
                 .findFirst();
-        return optionalUser.get();
+        return optionalUser.orElseThrow(UsernameOrPasswordErrorException::new);
     }
 }
