@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 
 @Data
 @NoArgsConstructor
@@ -16,6 +17,7 @@ public class User {
     private int id;
 
     @NotEmpty(message = "用户名不为空")
+    @Pattern(regexp = "[A-Za-z_0-9]{3,10}$", message = "用户名不合法")
     private String username;
 
     @NotEmpty(message = "密码不能为空")
